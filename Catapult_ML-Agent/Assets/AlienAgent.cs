@@ -68,7 +68,19 @@ public class AlienAgent : Agent
 
     public void CoinCollected()
     {
+        Debug.Log("Reward");
         SetReward(1.0f);
         Done();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Colliosion");
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            Debug.Log("Reward");
+            SetReward(1.0f);
+            Done();
+        }
     }
 }
