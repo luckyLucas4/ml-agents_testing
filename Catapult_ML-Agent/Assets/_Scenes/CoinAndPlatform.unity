@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd5b43b3c823a1d4c874c0e1c893fcf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brain: {fileID: 11400000, guid: 23d1021a62274904e94d225038e57e59, type: 2}
+  brain: {fileID: 11400000, guid: 489727d4fbf47f446bfa593a0d7799e0, type: 2}
   agentParameters:
     agentCameras: []
     maxStep: 0
@@ -718,6 +718,24 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
+  - first: {x: -3, y: -2, z: 0}
+    second:
+      m_TileIndex: 3
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
+  - first: {x: 12, y: -2, z: 0}
+    second:
+      m_TileIndex: 3
+      m_TileSpriteIndex: 3
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_ObjectToInstantiate: {fileID: 0}
+      m_TileFlags: 1
+      m_ColliderType: 1
   m_AnimatedTiles: {}
   m_TileAssetArray:
   - m_RefCount: 12
@@ -726,6 +744,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 55a889332308ebe4ebb431c5a1a3fac5, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 492cef57e577c4e4a896301054650744, type: 2}
+  - m_RefCount: 2
+    m_Data: {fileID: 11400000, guid: 4295d678216249546859d52eb884c5f2, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 12
     m_Data: {fileID: 21300000, guid: a23cf114efd061d41bed5243e8b65ed6, type: 3}
@@ -733,8 +753,10 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 051d2f3f7178b404691542ff37348ad6, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 72236d4302bc6894d8a5918aed76c7c7, type: 3}
+  - m_RefCount: 2
+    m_Data: {fileID: 21300000, guid: d19133a8efd2791448603d29dd348fa1, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 14
+  - m_RefCount: 16
     m_Data:
       e00: 1
       e01: 0
@@ -753,7 +775,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 14
+  - m_RefCount: 16
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -813,14 +835,22 @@ CompositeCollider2D:
   - m_Collider: {fileID: 635379526}
     m_ColliderPaths:
     - - X: -20000000
-        Y: -20312500
+        Y: -10000000
+      - X: -30000000
+        Y: -10000000
+      - X: -30000000
+        Y: -20000000
       - X: -20000000
-        Y: -29609376
-      - X: -19531250
-        Y: -30000000
-      - X: 119687504
-        Y: -30000000
+        Y: -20000000
+    - - X: 130000000
+        Y: -10000000
       - X: 120000000
+        Y: -10000000
+      - X: 120000000
+        Y: -20000000
+      - X: 130000000
+        Y: -20000000
+    - - X: 120000000
         Y: -29843750
       - X: 120000000
         Y: -20156250
@@ -828,8 +858,24 @@ CompositeCollider2D:
         Y: -20000000
       - X: -19609376
         Y: -20000000
+      - X: -20000000
+        Y: -20312500
+      - X: -20000000
+        Y: -29609376
+      - X: -19531250
+        Y: -30000000
+      - X: 119687504
+        Y: -30000000
   m_CompositePaths:
     m_Paths:
+    - - {x: -2, y: -1}
+      - {x: -3, y: -1}
+      - {x: -3, y: -2}
+      - {x: -2, y: -2}
+    - - {x: 13, y: -1}
+      - {x: 12, y: -1}
+      - {x: 12, y: -2}
+      - {x: 13, y: -2}
     - - {x: 12, y: -2.984375}
       - {x: 12, y: -2.015625}
       - {x: 11.968751, y: -2}
@@ -1019,7 +1065,8 @@ MonoBehaviour:
     broadcastingBrains:
     - {fileID: 11400000, guid: 489727d4fbf47f446bfa593a0d7799e0, type: 2}
     - {fileID: 11400000, guid: 23d1021a62274904e94d225038e57e59, type: 2}
-    _brainsToControl: []
+    _brainsToControl:
+    - {fileID: 11400000, guid: 489727d4fbf47f446bfa593a0d7799e0, type: 2}
   maxSteps: 0
   trainingConfiguration:
     width: 80

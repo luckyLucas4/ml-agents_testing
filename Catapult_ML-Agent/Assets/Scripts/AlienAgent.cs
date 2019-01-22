@@ -69,13 +69,6 @@ public class AlienAgent : Agent
         timer++;
     }
 
-    public void CoinCollected()
-    {
-        Debug.Log("Reward");
-        SetReward(1.0f);
-        Done();
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Coin"))
