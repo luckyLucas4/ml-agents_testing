@@ -70,7 +70,7 @@ namespace MLAgents
             }
 
             writer = fileSystem.File.Create(filePath);
-            metaData = new DemonstrationMetaData {demonstrationName = demonstrationName};
+            metaData = new DemonstrationMetaData { demonstrationName = demonstrationName };
             var metaProto = metaData.ToProto();
             metaProto.WriteDelimitedTo(writer);
         }
