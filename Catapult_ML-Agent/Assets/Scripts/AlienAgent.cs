@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using MLAgents;
 
 public class AlienAgent : Agent
 {
     Rigidbody2D rBody;
+    private int score;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,7 @@ public class AlienAgent : Agent
     public Transform startPosition;
     public Transform coin;
     public CircleCollider2D coinCollider;
+    public Text scoreText;
 
     public override void AgentReset()
     {
@@ -75,12 +78,12 @@ public class AlienAgent : Agent
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Colliosion");
         if (collision.gameObject.CompareTag("Coin"))
         {
-            Debug.Log("Reward");
             SetReward(1.0f);
             Done();
+            score++;
+            scoreText.text = "Score: " + score.ToString();
         }
     }
 }
