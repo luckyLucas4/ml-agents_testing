@@ -37,9 +37,9 @@ public class AlienAgent : Agent
 
     public override void CollectObservations()
     {
-        AddVectorObs(coin.position);
-        AddVectorObs(this.transform.position);
-        AddVectorObs(rBody.velocity.x);
+        AddVectorObs(coin.position.x);
+        AddVectorObs(this.transform.position.x);
+        AddVectorObs(rBody.velocity);
     }
 
     public float speed = 10;
@@ -69,7 +69,7 @@ public class AlienAgent : Agent
         timer++;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Coin"))
         {

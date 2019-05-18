@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: ed71f055b59c90048b5af7f8dbf6557b
+ScriptedImporter:
+  fileIDToRecycleName:
+    11400000: Assets/TFModels/AlienBrain.nn
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 83221ad3db87f4b3b91b041047cb2bc5, type: 3}

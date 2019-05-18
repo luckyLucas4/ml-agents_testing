@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AlienPlayer
   m_EditorClassIdentifier: 
   brainParameters:
-    vectorObservationSize: 7
+    vectorObservationSize: 3
     numStackedVectorObservations: 1
     vectorActionSize: 01000000
     cameraResolutions: []
