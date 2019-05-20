@@ -28,20 +28,22 @@ namespace MLAgents.CommunicatorObjects {
             "cmFtZXRlcnNfcHJvdG8ucHJvdG8SFGNvbW11bmljYXRvcl9vYmplY3RzGjlt",
             "bGFnZW50cy9lbnZzL2NvbW11bmljYXRvcl9vYmplY3RzL3Jlc29sdXRpb25f",
             "cHJvdG8ucHJvdG8aOW1sYWdlbnRzL2VudnMvY29tbXVuaWNhdG9yX29iamVj",
-            "dHMvc3BhY2VfdHlwZV9wcm90by5wcm90byLUAgoUQnJhaW5QYXJhbWV0ZXJz",
-            "UHJvdG8SHwoXdmVjdG9yX29ic2VydmF0aW9uX3NpemUYASABKAUSJwofbnVt",
-            "X3N0YWNrZWRfdmVjdG9yX29ic2VydmF0aW9ucxgCIAEoBRIaChJ2ZWN0b3Jf",
-            "YWN0aW9uX3NpemUYAyADKAUSQQoSY2FtZXJhX3Jlc29sdXRpb25zGAQgAygL",
-            "MiUuY29tbXVuaWNhdG9yX29iamVjdHMuUmVzb2x1dGlvblByb3RvEiIKGnZl",
-            "Y3Rvcl9hY3Rpb25fZGVzY3JpcHRpb25zGAUgAygJEkYKGHZlY3Rvcl9hY3Rp",
-            "b25fc3BhY2VfdHlwZRgGIAEoDjIkLmNvbW11bmljYXRvcl9vYmplY3RzLlNw",
-            "YWNlVHlwZVByb3RvEhIKCmJyYWluX25hbWUYByABKAkSEwoLaXNfdHJhaW5p",
-            "bmcYCCABKAhCH6oCHE1MQWdlbnRzLkNvbW11bmljYXRvck9iamVjdHNiBnBy",
-            "b3RvMw=="));
+            "dHMvYnJhaW5fdHlwZV9wcm90by5wcm90bxo5bWxhZ2VudHMvZW52cy9jb21t",
+            "dW5pY2F0b3Jfb2JqZWN0cy9zcGFjZV90eXBlX3Byb3RvLnByb3RvIvkCChRC",
+            "cmFpblBhcmFtZXRlcnNQcm90bxIfChd2ZWN0b3Jfb2JzZXJ2YXRpb25fc2l6",
+            "ZRgBIAEoBRInCh9udW1fc3RhY2tlZF92ZWN0b3Jfb2JzZXJ2YXRpb25zGAIg",
+            "ASgFEhoKEnZlY3Rvcl9hY3Rpb25fc2l6ZRgDIAMoBRJBChJjYW1lcmFfcmVz",
+            "b2x1dGlvbnMYBCADKAsyJS5jb21tdW5pY2F0b3Jfb2JqZWN0cy5SZXNvbHV0",
+            "aW9uUHJvdG8SIgoadmVjdG9yX2FjdGlvbl9kZXNjcmlwdGlvbnMYBSADKAkS",
+            "RgoYdmVjdG9yX2FjdGlvbl9zcGFjZV90eXBlGAYgASgOMiQuY29tbXVuaWNh",
+            "dG9yX29iamVjdHMuU3BhY2VUeXBlUHJvdG8SEgoKYnJhaW5fbmFtZRgHIAEo",
+            "CRI4CgpicmFpbl90eXBlGAggASgOMiQuY29tbXVuaWNhdG9yX29iamVjdHMu",
+            "QnJhaW5UeXBlUHJvdG9CH6oCHE1MQWdlbnRzLkNvbW11bmljYXRvck9iamVj",
+            "dHNiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::MLAgents.CommunicatorObjects.ResolutionProtoReflection.Descriptor, global::MLAgents.CommunicatorObjects.SpaceTypeProtoReflection.Descriptor, },
+          new pbr::FileDescriptor[] { global::MLAgents.CommunicatorObjects.ResolutionProtoReflection.Descriptor, global::MLAgents.CommunicatorObjects.BrainTypeProtoReflection.Descriptor, global::MLAgents.CommunicatorObjects.SpaceTypeProtoReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::MLAgents.CommunicatorObjects.BrainParametersProto), global::MLAgents.CommunicatorObjects.BrainParametersProto.Parser, new[]{ "VectorObservationSize", "NumStackedVectorObservations", "VectorActionSize", "CameraResolutions", "VectorActionDescriptions", "VectorActionSpaceType", "BrainName", "IsTraining" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::MLAgents.CommunicatorObjects.BrainParametersProto), global::MLAgents.CommunicatorObjects.BrainParametersProto.Parser, new[]{ "VectorObservationSize", "NumStackedVectorObservations", "VectorActionSize", "CameraResolutions", "VectorActionDescriptions", "VectorActionSpaceType", "BrainName", "BrainType" }, null, null, null)
           }));
     }
     #endregion
@@ -80,7 +82,7 @@ namespace MLAgents.CommunicatorObjects {
       vectorActionDescriptions_ = other.vectorActionDescriptions_.Clone();
       vectorActionSpaceType_ = other.vectorActionSpaceType_;
       brainName_ = other.brainName_;
-      isTraining_ = other.isTraining_;
+      brainType_ = other.brainType_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -163,14 +165,14 @@ namespace MLAgents.CommunicatorObjects {
       }
     }
 
-    /// <summary>Field number for the "is_training" field.</summary>
-    public const int IsTrainingFieldNumber = 8;
-    private bool isTraining_;
+    /// <summary>Field number for the "brain_type" field.</summary>
+    public const int BrainTypeFieldNumber = 8;
+    private global::MLAgents.CommunicatorObjects.BrainTypeProto brainType_ = 0;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool IsTraining {
-      get { return isTraining_; }
+    public global::MLAgents.CommunicatorObjects.BrainTypeProto BrainType {
+      get { return brainType_; }
       set {
-        isTraining_ = value;
+        brainType_ = value;
       }
     }
 
@@ -194,7 +196,7 @@ namespace MLAgents.CommunicatorObjects {
       if(!vectorActionDescriptions_.Equals(other.vectorActionDescriptions_)) return false;
       if (VectorActionSpaceType != other.VectorActionSpaceType) return false;
       if (BrainName != other.BrainName) return false;
-      if (IsTraining != other.IsTraining) return false;
+      if (BrainType != other.BrainType) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -208,7 +210,7 @@ namespace MLAgents.CommunicatorObjects {
       hash ^= vectorActionDescriptions_.GetHashCode();
       if (VectorActionSpaceType != 0) hash ^= VectorActionSpaceType.GetHashCode();
       if (BrainName.Length != 0) hash ^= BrainName.GetHashCode();
-      if (IsTraining != false) hash ^= IsTraining.GetHashCode();
+      if (BrainType != 0) hash ^= BrainType.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -241,9 +243,9 @@ namespace MLAgents.CommunicatorObjects {
         output.WriteRawTag(58);
         output.WriteString(BrainName);
       }
-      if (IsTraining != false) {
+      if (BrainType != 0) {
         output.WriteRawTag(64);
-        output.WriteBool(IsTraining);
+        output.WriteEnum((int) BrainType);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -268,8 +270,8 @@ namespace MLAgents.CommunicatorObjects {
       if (BrainName.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(BrainName);
       }
-      if (IsTraining != false) {
-        size += 1 + 1;
+      if (BrainType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) BrainType);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -297,8 +299,8 @@ namespace MLAgents.CommunicatorObjects {
       if (other.BrainName.Length != 0) {
         BrainName = other.BrainName;
       }
-      if (other.IsTraining != false) {
-        IsTraining = other.IsTraining;
+      if (other.BrainType != 0) {
+        BrainType = other.BrainType;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -341,7 +343,7 @@ namespace MLAgents.CommunicatorObjects {
             break;
           }
           case 64: {
-            IsTraining = input.ReadBool();
+            brainType_ = (global::MLAgents.CommunicatorObjects.BrainTypeProto) input.ReadEnum();
             break;
           }
         }

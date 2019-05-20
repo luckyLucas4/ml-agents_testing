@@ -61,23 +61,7 @@ namespace MLAgents.Tests
     // It is left empty because we are not testing any brain behavior
     public class TestBrain : Brain
     {
-        public int numberOfCallsToInitialize = 0;
-        public int numberOfCallsToDecideAction = 0;
-        public static TestBrain Instantiate()
-        {
-            return CreateInstance<TestBrain>();
-        }
 
-        protected override void Initialize()
-        {
-            numberOfCallsToInitialize++;
-        }
-
-        protected override void DecideAction()
-        {
-            numberOfCallsToDecideAction++;
-            agentInfos.Clear();
-        }
     }
 
 
@@ -110,11 +94,6 @@ namespace MLAgents.Tests
     public class EditModeTestInitialization
     {
 
-        private Brain GenerateTestBrain()
-        {
-            return ScriptableObject.CreateInstance<TestBrain>();
-        } 
-        
         [Test]
         public void TestAcademy()
         {
@@ -149,7 +128,10 @@ namespace MLAgents.Tests
             GameObject acaGO = new GameObject("TestAcademy");
             acaGO.AddComponent<TestAcademy>();
             TestAcademy aca = acaGO.GetComponent<TestAcademy>();
-            TestBrain brain = TestBrain.Instantiate();
+            GameObject brainGO = new GameObject("TestBrain");
+            brainGO.transform.parent = acaGO.transform;
+            brainGO.AddComponent<TestBrain>();
+            TestBrain brain = brainGO.GetComponent<TestBrain>();
             brain.brainParameters = new BrainParameters();
             brain.brainParameters.vectorObservationSize = 0;
             agent1.GiveBrain(brain);
@@ -234,7 +216,10 @@ namespace MLAgents.Tests
             GameObject acaGO = new GameObject("TestAcademy");
             acaGO.AddComponent<TestAcademy>();
             TestAcademy aca = acaGO.GetComponent<TestAcademy>();
-            TestBrain brain = TestBrain.Instantiate();
+            GameObject brainGO = new GameObject("TestBrain");
+            brainGO.transform.parent = acaGO.transform;
+            brainGO.AddComponent<TestBrain>();
+            TestBrain brain = brainGO.GetComponent<TestBrain>();
 
 
             MethodInfo AgentEnableMethod = typeof(Agent).GetMethod(
@@ -252,7 +237,7 @@ namespace MLAgents.Tests
             agent2.agentParameters.onDemandDecision = true;
             // agent2 will request decisions only when RequestDecision is called
             brain.brainParameters.vectorObservationSize = 0;
-            brain.brainParameters.cameraResolutions = new Resolution[0];
+            brain.brainParameters.cameraResolutions = new resolution[0];
             agent1.GiveBrain(brain);
             agent2.GiveBrain(brain);
 
@@ -369,7 +354,10 @@ namespace MLAgents.Tests
             GameObject acaGO = new GameObject("TestAcademy");
             acaGO.AddComponent<TestAcademy>();
             TestAcademy aca = acaGO.GetComponent<TestAcademy>();
-            TestBrain brain = TestBrain.Instantiate();
+            GameObject brainGO = new GameObject("TestBrain");
+            brainGO.transform.parent = acaGO.transform;
+            brainGO.AddComponent<TestBrain>();
+            TestBrain brain = brainGO.GetComponent<TestBrain>();
 
 
             MethodInfo AgentEnableMethod = typeof(Agent).GetMethod(
@@ -390,7 +378,7 @@ namespace MLAgents.Tests
             agent2.agentParameters.onDemandDecision = true;
             // agent2 will request decisions only when RequestDecision is called
             brain.brainParameters.vectorObservationSize = 0;
-            brain.brainParameters.cameraResolutions = new Resolution[0];
+            brain.brainParameters.cameraResolutions = new resolution[0];
             agent1.GiveBrain(brain);
             agent2.GiveBrain(brain);
 
@@ -548,7 +536,10 @@ namespace MLAgents.Tests
             GameObject acaGO = new GameObject("TestAcademy");
             acaGO.AddComponent<TestAcademy>();
             TestAcademy aca = acaGO.GetComponent<TestAcademy>();
-            TestBrain brain = TestBrain.Instantiate();
+            GameObject brainGO = new GameObject("TestBrain");
+            brainGO.transform.parent = acaGO.transform;
+            brainGO.AddComponent<TestBrain>();
+            TestBrain brain = brainGO.GetComponent<TestBrain>();
 
 
             MethodInfo AgentEnableMethod = typeof(Agent).GetMethod(
@@ -575,7 +566,7 @@ namespace MLAgents.Tests
             agent1.agentParameters.maxStep = 20;
             agent2.agentParameters.maxStep = 30;
             brain.brainParameters.vectorObservationSize = 0;
-            brain.brainParameters.cameraResolutions = new Resolution[0];
+            brain.brainParameters.cameraResolutions = new resolution[0];
             agent1.GiveBrain(brain);
             agent2.GiveBrain(brain);
 
@@ -680,7 +671,10 @@ namespace MLAgents.Tests
             GameObject acaGO = new GameObject("TestAcademy");
             acaGO.AddComponent<TestAcademy>();
             TestAcademy aca = acaGO.GetComponent<TestAcademy>();
-            TestBrain brain = TestBrain.Instantiate();
+            GameObject brainGO = new GameObject("TestBrain");
+            brainGO.transform.parent = acaGO.transform;
+            brainGO.AddComponent<TestBrain>();
+            TestBrain brain = brainGO.GetComponent<TestBrain>();
 
 
             MethodInfo AgentEnableMethod = typeof(Agent).GetMethod(
@@ -705,7 +699,7 @@ namespace MLAgents.Tests
             agent1.agentParameters.resetOnDone = false;
             agent2.agentParameters.resetOnDone = false;
             brain.brainParameters.vectorObservationSize = 0;
-            brain.brainParameters.cameraResolutions = new Resolution[0];
+            brain.brainParameters.cameraResolutions = new resolution[0];
             agent1.GiveBrain(brain);
             agent2.GiveBrain(brain);
 
@@ -765,7 +759,10 @@ namespace MLAgents.Tests
             GameObject acaGO = new GameObject("TestAcademy");
             acaGO.AddComponent<TestAcademy>();
             TestAcademy aca = acaGO.GetComponent<TestAcademy>();
-            TestBrain brain = TestBrain.Instantiate();
+            GameObject brainGO = new GameObject("TestBrain");
+            brainGO.transform.parent = acaGO.transform;
+            brainGO.AddComponent<TestBrain>();
+            TestBrain brain = brainGO.GetComponent<TestBrain>();
 
 
             MethodInfo AgentEnableMethod = typeof(Agent).GetMethod(
@@ -787,7 +784,7 @@ namespace MLAgents.Tests
             // agent2 will request decisions only when RequestDecision is called
             agent1.agentParameters.maxStep = 20;
             brain.brainParameters.vectorObservationSize = 0;
-            brain.brainParameters.cameraResolutions = new Resolution[0];
+            brain.brainParameters.cameraResolutions = new resolution[0];
             agent1.GiveBrain(brain);
             agent2.GiveBrain(brain);
 

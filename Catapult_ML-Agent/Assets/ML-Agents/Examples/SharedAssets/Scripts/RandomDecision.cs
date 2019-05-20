@@ -5,17 +5,26 @@ using MLAgents;
 namespace MLAgents
 {
 
-    public class RandomDecision : Decision
+    public class RandomDecision : MonoBehaviour, Decision
     {
+        BrainParameters brainParameters;
+        SpaceType actionSpaceType;
 
-        public override float[] Decide(
+        public void Awake()
+        {
+            brainParameters =
+                gameObject.GetComponent<Brain>().brainParameters;
+            actionSpaceType = brainParameters.vectorActionSpaceType;
+        }
+
+        public float[] Decide(
             List<float> vectorObs,
             List<Texture2D> visualObs,
             float reward,
             bool done,
             List<float> memory)
         {
-            if (brainParameters.vectorActionSpaceType == SpaceType.continuous)
+            if (actionSpaceType == SpaceType.continuous)
             {
                 List<float> act = new List<float>();
 
@@ -37,7 +46,7 @@ namespace MLAgents
             }
         }
 
-        public override List<float> MakeMemory(
+        public List<float> MakeMemory(
             List<float> vectorObs,
             List<Texture2D> visualObs,
             float reward,

@@ -92,22 +92,7 @@ namespace MLAgents
              "docs/Learning-Environment-Design-Academy.md")]
     public abstract class Academy : MonoBehaviour
     {
-        [SerializeField] 
-        public BroadcastHub broadcastHub = new BroadcastHub();
-        
-        private const string kApiVersion = "API-7";
-
-        /// Temporary storage for global gravity value
-        /// Used to restore oringal value when deriving Academy modifies it 
-        private Vector3 originalGravity;
-
-        /// Temporary storage for global fixedDeltaTime value
-        /// Used to restore oringal value when deriving Academy modifies it 
-        private float originalFixedDeltaTime;
-        
-        /// Temporary storage for global maximumDeltaTime value
-        /// Used to restore oringal value when deriving Academy modifies it 
-        private float originalMaximumDeltaTime;
+        private const string kApiVersion = "API-5";
 
         // Fields provided in the Inspector
 
@@ -263,26 +248,16 @@ namespace MLAgents
         /// </summary>
         private void InitializeEnvironment()
         {
-            originalGravity = Physics.gravity;
-            originalFixedDeltaTime = Time.fixedDeltaTime;
-            originalMaximumDeltaTime = Time.maximumDeltaTime;
-            
+            // Retrieve Brain and initialize Academy
+            var brains = GetBrains(gameObject);
             InitializeAcademy();
-            Communicator communicator = null;
+            MLAgents.Communicator communicator = null;
 
-            var exposedBrains = broadcastHub.broadcastingBrains.Where(x => x != null).ToList();;
-            var controlledBrains = broadcastHub.broadcastingBrains.Where(
-                x => x != null && x is LearningBrain && broadcastHub.IsControlled(x));
-            foreach (LearningBrain brain in controlledBrains)
-            {
-                brain.SetToControlledExternally();
-            }
-            
             // Try to launch the communicator by usig the arguments passed at launch
             try
             {
-                communicator = new RPCCommunicator(
-                    new CommunicatorParameters
+                communicator = new MLAgents.RPCCommunicator(
+                    new MLAgents.CommunicatorParameters
                     {
                         port = ReadArgs()
                     });
@@ -294,21 +269,23 @@ namespace MLAgents
             catch
             {
                 communicator = null;
-                if (controlledBrains.ToList().Count > 0)
+                var externalBrain = brains.FirstOrDefault(b => b.brainType == BrainType.External);
+                if (externalBrain != null)
                 {
-                    communicator = new RPCCommunicator(
-                        new CommunicatorParameters
+                    communicator = new MLAgents.RPCCommunicator(
+                        new MLAgents.CommunicatorParameters
                         {
                             port = 5005
                         });
                 }
             }
 
-            brainBatcher = new Batcher(communicator);
+            brainBatcher = new MLAgents.Batcher(communicator);
 
-            foreach (var trainingBrain in exposedBrains)
+            // Initialize Brains and communicator (if present)
+            foreach (var brain in brains)
             {
-                trainingBrain.SetBatcher(brainBatcher);
+                brain.InitializeBrain(this, brainBatcher);
             }
 
             if (communicator != null)
@@ -316,17 +293,23 @@ namespace MLAgents
                 isCommunicatorOn = true;
 
                 var academyParameters =
-                    new CommunicatorObjects.UnityRLInitializationOutput();
+                    new MLAgents.CommunicatorObjects.UnityRLInitializationOutput();
                 academyParameters.Name = gameObject.name;
                 academyParameters.Version = kApiVersion;
-                foreach (var brain in exposedBrains)
+                foreach (var brain in brains)
                 {
                     var bp = brain.brainParameters;
                     academyParameters.BrainParameters.Add(
-                        bp.ToProto(brain.name, broadcastHub.IsControlled(brain)));
+                        MLAgents.Batcher.BrainParametersConvertor(
+                            bp,
+                            brain.gameObject.name,
+                            (MLAgents.CommunicatorObjects.BrainTypeProto)
+                            brain.brainType));
                 }
+                
+
                 academyParameters.EnvironmentParameters =
-                    new CommunicatorObjects.EnvironmentParametersProto();
+                    new MLAgents.CommunicatorObjects.EnvironmentParametersProto();
                 foreach (var key in resetParameters.Keys)
                 {
                     academyParameters.EnvironmentParameters.FloatParameters.Add(
@@ -554,7 +537,7 @@ namespace MLAgents
             {
                 lastCommunicatorMessageNumber = brainBatcher.GetNumberMessageReceived();
                 if (brainBatcher.GetCommand() ==
-                    CommunicatorObjects.CommandProto.Reset)
+                    MLAgents.CommunicatorObjects.CommandProto.Reset)
                 {
                     UpdateResetParameters();
 
@@ -564,7 +547,7 @@ namespace MLAgents
                 }
 
                 if (brainBatcher.GetCommand() ==
-                    CommunicatorObjects.CommandProto.Quit)
+                    MLAgents.CommunicatorObjects.CommandProto.Quit)
                 {
 #if UNITY_EDITOR
                     EditorApplication.isPlaying = false;
@@ -628,13 +611,30 @@ namespace MLAgents
         }
 
         /// <summary>
-        /// Cleanup function
+        /// Helper method that retrieves the Brain objects that are currently
+        /// specified as children of the Academy within the Editor.
         /// </summary>
-        protected virtual void OnDestroy()
+        /// <param name="academy">Academy.</param>
+        /// <returns>
+        /// List of brains currently attached to academy.
+        /// </returns>
+        static List<Brain> GetBrains(GameObject academy)
         {
-            Physics.gravity = originalGravity;
-            Time.fixedDeltaTime = originalFixedDeltaTime;
-            Time.maximumDeltaTime = originalMaximumDeltaTime;
+            List<Brain> brains = new List<Brain>();
+            var transform = academy.transform;
+
+            for (var i = 0; i < transform.childCount; i++)
+            {
+                var child = transform.GetChild(i);
+                var brain = child.GetComponent<Brain>();
+
+                if (brain != null && child.gameObject.activeSelf)
+                {
+                    brains.Add(brain);
+                }
+            }
+
+            return brains;
         }
     }
 }
